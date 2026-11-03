@@ -265,7 +265,7 @@ private fun DuelBoard(v: DuelView, s: DuelSession, botName: String, difficulty: 
         }
         // --- campo
         BoxWithConstraints(Modifier.fillMaxWidth().padding(horizontal = 4.dp)) {
-            val cell = (maxWidth - 6 * 3.dp) / 7
+            val cell = (maxWidth - 3.dp * 6) / 7
             Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 // riga Magie/Trappole avversario (specchiata)
                 Row(horizontalArrangement = Arrangement.spacedBy(3.dp)) {
