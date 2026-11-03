@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- carta stilizzata con occhio -->
+    <path android:fillColor="#FFB8860B"
+        android:pathData="M38,26 L70,26 Q74,26 74,30 L74,78 Q74,82 70,82 L38,82 Q34,82 34,78 L34,30 Q34,26 38,26 Z" />
+    <path android:fillColor="#FF5A3A10"
+        android:pathData="M40,32 L68,32 L68,76 L40,76 Z" />
+    <path android:fillColor="#FFF2D27A"
+        android:pathData="M42,54 Q54,42 66,54 Q54,66 42,54 Z" />
+    <path android:fillColor="#FF2A1F4A"
+        android:pathData="M54,49 A5,5 0 1,1 53.99,49 Z" />
+</vector>

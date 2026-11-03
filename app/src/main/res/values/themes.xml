@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.YGOTester" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">#FF14121C</item>
+        <item name="android:statusBarColor">#FF14121C</item>
+        <item name="android:navigationBarColor">#FF14121C</item>
+    </style>
+</resources>
