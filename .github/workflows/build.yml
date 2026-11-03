@@ -1,0 +1,48 @@
+name: Compila APK
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Scarica il motore (ocgcore + Lua)
+        run: bash tools/fetch_core.sh
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Compila
+        run: gradle assembleRelease --no-daemon --stacktrace
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: YGO-Tester-APK
+          path: app/build/outputs/apk/release/*.apk
+
+  motore:
+    # Verifica il motore C++: compila e fa giocare i bot con i mazzi dell'app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scarica database e script (versioni fissate)
+        run: |
+          git clone -q https://github.com/ProjectIgnis/CardScripts.git cs && git -C cs checkout -q 2bd02f71383b87d7dee174909a96d10491930c45
+          curl -sSL -o cards.cdb https://raw.githubusercontent.com/ProjectIgnis/BabelCDB/781ec580fb82ced7cd17bae290ee2985824a0def/cards.cdb
+          python3 tools/gen_cards_bin.py cards.cdb cards.bin
+      - name: Compila e prova
+        run: |
+          bash tools/fetch_core.sh
+          cmake -S app/src/main/cpp -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build -j4
+          python3 tools/test_bot_decks.py build/duel_test cards.bin cs app/src/main/assets/bot_decks.json
